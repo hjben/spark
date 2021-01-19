@@ -1,1 +1,1 @@
-# spark3-centos
+# spark-centos
