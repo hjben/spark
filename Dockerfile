@@ -1,4 +1,4 @@
-FROM hjben/centos8-systemd:latest
+FROM hjben/centos-systemd:latest
 MAINTAINER hjben <hj.ben.kim@gmail.com>
 
 ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
