@@ -7,7 +7,7 @@ ENV SPARK_CLASSPATH $SPARK_HOME/jars
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 ENV TZ=Asia/Seoul
 
-RUN def install -y openssh-server openssh-clients openssh-askpass
+RUN dnf install -y openssh-server openssh-clients openssh-askpass
 RUN dnf install -y rsync
 RUN dnf install -y vim
 RUN dnf install -y net-tools
