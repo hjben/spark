@@ -1,7 +1,7 @@
 version: '2'
 services:
   master:
-    image: hjben/spark3-centos-jupyter:3.0.1
+    image: hjben/spark-jupyter:3.0.1
     hostname: master
     container_name: master
     privileged: true
@@ -23,7 +23,7 @@ services:
       - slave1
       - slave2
   slave1:
-    image: hjben/spark3-centos:3.0.1
+    image: hjben/spark:3.0.1
     hostname: slave1
     container_name: slave1
     privileged: true
@@ -40,7 +40,7 @@ services:
       - "slave1:10.0.2.3"
       - "slave2:10.0.2.4"
   slave2:
-    image: hjben/spark3-centos:3.0.1
+    image: hjben/spark:3.0.1
     hostname: slave2
     container_name: slave2
     privileged: true
