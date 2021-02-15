@@ -1,18 +1,9 @@
-FROM hjben/centos8-systemd:latest
+FROM hjben/centos-openjdk:11
 MAINTAINER hjben <hj.ben.kim@gmail.com>
 
-ENV JAVA_HOME /usr/lib/jvm/jre-11-openjdk
 ENV SPARK_HOME /usr/local/spark
 ENV SPARK_CLASSPATH $SPARK_HOME/jars
 ENV PATH $PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-ENV TZ=Asia/Seoul
-
-RUN def install -y openssh-server openssh-clients openssh-askpass
-RUN dnf install -y rsync
-RUN dnf install -y vim
-RUN dnf install -y net-tools
-RUN dnf install -y java-11-openjdk
-RUN dnf install -y wget
 
 RUN dnf install -y python38
 
@@ -35,4 +26,4 @@ EXPOSE 8080-8099
 EXPOSE 4040-4099
 EXPOSE 7077
 
-CMD ["/usr/sbin/init"]
+ENTRYPOINT ["/usr/sbin/init"]
