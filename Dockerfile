@@ -14,9 +14,9 @@ RUN ln -s python3 python && ln -s pip3 pip
 
 WORKDIR /
 RUN wget https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz
-RUN tar -xvzf spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz -C /usr/local
+RUN tar -xvzf spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz -C /usr/local && \
+    rm -f /spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz
 RUN ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION /usr/local/spark
-RUN rm -f /spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz
 
 ADD slaves $SPARK_HOME/conf/slaves
 
