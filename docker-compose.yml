@@ -1,13 +1,12 @@
 services:
-  master:
-    image: hjben/spark-jupyter:3.0.1
-    hostname: master
-    container_name: master
+  jupyter-lab:
+    image: hjben/jupyter-lab:latest
+    hostname: jupyter-lab
+    container_name: jupyter-lab
     privileged: true
     ports:
       - 8888:8888
       - 4040-4099:4040-4099
-      - 8080-8081:8080-8081
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup
       - /Users/a10053/workspace/docker/spark-notebook:/root/workspace
@@ -16,9 +15,30 @@ services:
       spark-cluster:
         ipv4_address: 10.0.2.2
     extra_hosts:
-      - "master:10.0.2.2"
-      - "slave1:10.0.2.3"
-      - "slave2:10.0.2.4"
+      - "jupyter-lab:10.0.2.2"
+      - "master:10.0.2.3"
+      - "slave1:10.0.2.4"
+      - "slave2:10.0.2.5"
+
+  master:
+    image: hjben/spark:3.0.1
+    hostname: master
+    container_name: master
+    privileged: true
+    ports
+      - 8080-8081:8080-8081
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /Users/a10053/workspace/docker/spark-notebook:/root/workspace
+      - /tmp/spark/logs/master:/usr/local/spark/logs 
+    networks:
+      spark-cluster:
+        ipv4_address: 10.0.2.3
+    extra_hosts:
+      - "jupyter-lab:10.0.2.2"
+      - "master:10.0.2.3"
+      - "slave1:10.0.2.4"
+      - "slave2:10.0.2.5"
     depends_on:
       - slave1
       - slave2
@@ -35,11 +55,12 @@ services:
       - /tmp/spark/logs/slave1:/usr/local/spark/logs
     networks:
       spark-cluster:
-        ipv4_address: 10.0.2.3
+        ipv4_address: 10.0.2.4
     extra_hosts:
-      - "master:10.0.2.2"
-      - "slave1:10.0.2.3"
-      - "slave2:10.0.2.4"
+      - "jupyter-lab:10.0.2.2"
+      - "master:10.0.2.3"
+      - "slave1:10.0.2.4"
+      - "slave2:10.0.2.5"
   slave2:
     image: hjben/spark:3.0.1
     hostname: slave2
@@ -53,11 +74,12 @@ services:
       - /tmp/spark/logs/slave1:/usr/local/spark/logs
     networks:
       spark-cluster:
-        ipv4_address: 10.0.2.4
+        ipv4_address: 10.0.2.5
     extra_hosts:
-      - "master:10.0.2.2"
-      - "slave1:10.0.2.3"
-      - "slave2:10.0.2.4"
+      - "jupyter-lab:10.0.2.2"
+      - "master:10.0.2.3"
+      - "slave1:10.0.2.4"
+      - "slave2:10.0.2.5"
 
 networks:
  spark-cluster:
